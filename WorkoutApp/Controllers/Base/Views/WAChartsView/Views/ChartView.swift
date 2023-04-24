@@ -99,7 +99,7 @@ private extension ChartView {
         ///Создание абстрактоного пути
         let chartPath = UIBezierPath()
         chartPath.move(to: points[0])
-        
+    
         points.forEach {
             chartPath.addLine(to: $0)
             drawChartDot(at: $0)
