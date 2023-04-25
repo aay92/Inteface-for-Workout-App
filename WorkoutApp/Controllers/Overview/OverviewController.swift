@@ -25,7 +25,7 @@ class OverviewController: WABaseController {
 
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 5
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
@@ -81,11 +81,13 @@ extension OverviewController {
                   items: [
                     .init(title: "Warm Up Cardio", subtitle: "Stair Climber • 10 minutes", isDone: false),
                     .init(title: "Chest Workout", subtitle: "Bench Press • 3 sets • 10 reps", isDone: false),
-                    .init(title: "Tricep Workout", subtitle: "Overhead Extension • 5 sets • 8 reps", isDone: false),
+                    .init(title: "Tricep Workout", subtitle: "Overhead Extension • 5 sets • 8 reps", isDone: true),
                   ]),
             .init(date: Date(),
                   items: [
                     .init(title: "Cardio Interval Workout", subtitle: "Treadmill • 60 minutes", isDone: false),
+                    .init(title: "Cardio Interval Workout", subtitle: "Treadmill • 60 minutes", isDone: false),
+                    .init(title: "Cardio Interval Workout", subtitle: "Treadmill • 60 minutes", isDone: false),.init(title: "Cardio Interval Workout", subtitle: "Treadmill • 60 minutes", isDone: false)
                   ])
         ]
         collectionView.reloadData()
@@ -110,7 +112,9 @@ extension OverviewController: UICollectionViewDataSource {
 
         let item = dataSource[indexPath.section].items[indexPath.row]
 
+        ///Закругление углов у секций
         let roundedType: CellRoundedType
+        ///indexPath.row == dataSource[indexPath.section].items.count - 1 (Если indexPath.row - количество отрисованных элементов равно количество элементов массива в секции , значит закругляем все углы)
         if indexPath.row == 0 && indexPath.row == dataSource[indexPath.section].items.count - 1 {
             roundedType = .all
         } else if indexPath.row == 0 {
@@ -122,6 +126,7 @@ extension OverviewController: UICollectionViewDataSource {
         }
 
         cell.configure(with: item.title, subtitle: item.subtitle, isDone: item.isDone, roundedType: roundedType)
+
         return cell
     }
 
@@ -133,6 +138,7 @@ extension OverviewController: UICollectionViewDataSource {
         ) as? SectionHeaderView else { return UICollectionReusableView() }
 
         view.configure(with: dataSource[indexPath.section].date)
+        
         return view
     }
 }
@@ -142,9 +148,10 @@ extension OverviewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+      ///CGSize - размер ячейки в колекции
         CGSize(width: collectionView.frame.width, height: 70)
     }
-
+      ///Size For Header In Section
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {

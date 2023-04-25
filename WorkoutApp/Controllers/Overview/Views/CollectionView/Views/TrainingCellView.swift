@@ -6,6 +6,7 @@
 
 import UIKit
 
+///CellRoundedType - Pакругление ячеек
 enum CellRoundedType {
     case top, bottom, all, notRounded
 }
@@ -59,13 +60,18 @@ final class TrainingCellView: UICollectionViewCell {
         self.subtitle.text = subtitle
 
         checkmarkView.image = isDone ? R.Images.Overview.checkmarkDone : R.Images.Overview.checkmarkNotDone
-
+        
+        self.title.textColor = isDone ? UIColor.blue.withAlphaComponent(0.5)
+        : R.Colors.titleGray
+        self.subtitle.textColor = isDone ? UIColor.blue.withAlphaComponent(0.5) : R.Colors.titleGray
+        
         switch roundedType {
-        case .all: self.roundCorners([.allCorners], radius: 5)
-        case .bottom: self.roundCorners([.bottomLeft, .bottomRight], radius: 5)
-        case .top: self.roundCorners([.topLeft, .topRight], radius: 5)
+        case .all: self.roundCorners([.allCorners], radius: 15)
+        case .bottom: self.roundCorners([.bottomLeft, .bottomRight], radius: 15)
+        case .top: self.roundCorners([.topLeft, .topRight], radius: 15)
         case .notRounded: self.roundCorners([.allCorners], radius: 0)
         }
+        
     }
 }
 
